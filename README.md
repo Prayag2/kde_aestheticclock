@@ -1,6 +1,6 @@
 <p align="center">
   <h2 align="center">Aesthetic Clock for KDE</h2>
-  <p align="center">An aesthetic looking clock for KDE with a built-in system monitor and media player! The text "fills up" the values increase!</center>
+  <p align="center">An aesthetic looking clock for KDE with a built-in system monitor and media player! The text "fills up" as the values increase!</center>
 </p>
 
 <p align="center">
