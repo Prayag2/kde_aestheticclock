@@ -30,7 +30,8 @@ Item {
     property bool showDate: Plasmoid.configuration.show_date
     property bool showSysMon: Plasmoid.configuration.show_sys_mon
     property bool enableFillAnimation: Plasmoid.configuration.enable_fill_animation
-    
+    property bool enable24Hour: Plasmoid.configuration.enable_24_hour
+    property bool useSystemColors: Plasmoid.configuration.use_system_colors 
     // Font Sizes
     property int globalFontSize: Plasmoid.configuration.global_font_size 
     property int monthFontSize: proportionalFont ? globalFontSize * 0.24 : Plasmoid.configuration.month_font_size
@@ -54,10 +55,10 @@ Item {
     property int sysMonInterval: Plasmoid.configuration.sys_mon_interval
     
     // Colors
-    property string textBackgroundColor: Plasmoid.configuration.text_background_color
-    property string colorOne: Plasmoid.configuration.color_one
-    property string colorTwo: Plasmoid.configuration.color_two
-    property string colorThree: Plasmoid.configuration.color_three
+    property string textBackgroundColor: useSystemColors ? PlasmaCore.Theme.backgroundColor : Plasmoid.configuration.text_background_color
+    property string colorOne: useSystemColors ? PlasmaCore.Theme.negativeTextColor : Plasmoid.configuration.color_one
+    property string colorTwo: useSystemColors ? PlasmaCore.Theme.positiveTextColor : Plasmoid.configuration.color_two
+    property string colorThree: useSystemColors ? PlasmaCore.Theme.neutralTextColor : Plasmoid.configuration.color_three
 
     // Plasmoid
     Plasmoid.fullRepresentation: Item {
@@ -74,6 +75,7 @@ Item {
             connectedSources: ["Local"]
             interval: 1000
             signal fillDataChanged
+            property bool use24Hour: root.enable24Hour
             
             onDataChanged: {
                 var curDate = timeSource.data["Local"]["DateTime"]
@@ -84,14 +86,21 @@ Item {
                 var MIN = parseInt(Qt.formatTime(curDate, "mm"))
                 month.text = Qt.formatDate(curDate, "MMM")
                 year.text = Qt.formatDate(curDate, "yyyy")
-                timeAP.text = Qt.formatTime(curDate, "AP")
+                timeAP.text = use24Hour ? ":" : Qt.formatTime(curDate, "AP")
 
-                hours.text = HOURAP < 10 ? "0" + HOURAP.toString(): HOURAP
+                if (enable24Hour) {
+                    hours.text = HOUR
+                } else {
+                    hours.text = HOURAP < 10 ? "0" + HOURAP.toString(): HOURAP
+                }
                 day.text = DAY < 10 ? "0" + DAY.toString() : DAY
                 minutes.text = MIN < 10 ? "0" + MIN.toString() : MIN
                 
                 if (enableFillAnimation) fillDataChanged()
             } 
+            onUse24HourChanged: {
+                dataChanged()
+            }
             onFillDataChanged: {
                 var curDate = timeSource.data["Local"]["DateTime"]
                 // updating minute fill value each second
@@ -101,7 +110,9 @@ Item {
                 month.to = daysInMonth(parseInt(Qt.formatDate(curDate, "MM")), parseInt(year.text))
                 month.currentVal = parseInt(day.text)    
                 year.currentVal = parseInt(Qt.formatDate(curDate, "MM"))
-                timeAP.currentVal = timeAP.text == "AM" ? 1 : 2
+                if(!use24Hour) {
+                    timeAP.currentVal = timeAP.text == "AM" ? 1 : 2
+                }
             }
             
         }
@@ -157,11 +168,15 @@ Item {
             
             onDataChanged: {
                 audioTitle.text = data["@multiplex"]["Metadata"]["xesam:title"]
-                audioThumb.source = data["@multiplex"]["Metadata"]["mpris:artUrl"]
                 try {
                     audioArtist.text = data["@multiplex"]["Metadata"]["xesam:artist"].join(", ")
                 } catch(err) {
                     audioArtist.text = data["@multiplex"]["Metadata"]["xesam:artist"]
+                }
+                try {
+                    audioThumb.source = data["@multiplex"]["Metadata"]["mpris:artUrl"]
+                } catch(err) {
+                    // don't show any thumbnail
                 }
                 sectionAudio.visible = data["@multiplex"]["PlaybackStatus"] == "Playing" && showAudio ? true : false 
             }

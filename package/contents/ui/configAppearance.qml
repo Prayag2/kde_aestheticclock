@@ -32,6 +32,8 @@ ColumnLayout {
     property alias cfg_show_audio: showAudio.checked
     property alias cfg_enable_fill_animation: enableFillAnimation.checked
     property alias cfg_show_date: showDate.checked
+    property alias cfg_enable_24_hour: enable24Hour.checked
+    property alias cfg_use_system_colors: useSystemColors.checked
     
     
     Title {
@@ -121,6 +123,10 @@ ColumnLayout {
     Title {
         text: i18n("Colors")
     }
+    BooleanField {
+        id: useSystemColors 
+        text: i18n("Use colors from the current color scheme")
+    }
     ColorField {
         id: textBackgroundColor
         text: "Text Background Color"
@@ -161,6 +167,10 @@ ColumnLayout {
     BooleanField {
         id: enableFillAnimation
         text: i18n("Show Fill Animation")
+    }
+    BooleanField {
+        id: enable24Hour
+        text: i18n("Use 24 hour clock")
     }
     
     
