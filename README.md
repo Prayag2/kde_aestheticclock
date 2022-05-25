@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/Prayag2/kde_aestheticclock/blob/main/assets/ss.png"/>
+  <img src="https://github.com/Prayag2/kde_aestheticclock/blob/main/assets/ss_1.png"/>
 </p>
 
 ## Installation
