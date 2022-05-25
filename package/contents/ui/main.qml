@@ -158,7 +158,11 @@ Item {
             onDataChanged: {
                 audioTitle.text = data["@multiplex"]["Metadata"]["xesam:title"]
                 audioThumb.source = data["@multiplex"]["Metadata"]["mpris:artUrl"]
-                audioArtist.text = data["@multiplex"]["Metadata"]["xesam:artist"].join(", ")
+                try {
+                    audioArtist.text = data["@multiplex"]["Metadata"]["xesam:artist"].join(", ")
+                } catch(err) {
+                    audioArtist.text = data["@multiplex"]["Metadata"]["xesam:artist"]
+                }
                 sectionAudio.visible = data["@multiplex"]["PlaybackStatus"] == "Playing" && showAudio ? true : false 
             }
             onShowAudioChanged: {
