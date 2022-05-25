@@ -13,7 +13,7 @@
         "License": "GPLv3",
         "Name": "Aesthetic Clock",
         "ServiceTypes": ["Plasma/Applet"],
-        "Version": "0.1.1",
+        "Version": "0.2.0",
         "Website": "https://github.com/prayag2/kde_aestheticclock"
     },
     "X-Plasma-API": "declarativeappletscript",

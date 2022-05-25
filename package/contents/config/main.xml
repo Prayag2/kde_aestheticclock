@@ -25,6 +25,12 @@
         <entry name="proportional_font" type="Bool">
             <default>false</default>
         </entry>
+        <entry name="enable_24_hour" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="use_system_colors" type="Bool">
+            <default>false</default>
+        </entry>
         
         <!-- Font Sizes -->
         <entry name="month_font_size" type="Int">
