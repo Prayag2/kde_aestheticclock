@@ -4,9 +4,9 @@
 </p>
 
 <p align="center">
-<a href="https://github.com/prayag2/kde_aestheticclock/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/prayag2/kde_aestheticclock?color=%23234a37&style=for-the-badge"></a>
-<a href="https://github.com/prayag2/kde_aestheticclock/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/prayag2/kde_aestheticclock?color=%23234a37&style=for-the-badge"></a>
-<a href="https://github.com/prayag2/kde_aestheticclock/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/prayag2/kde_aestheticclock?color=%23234a37&style=for-the-badge"></a>
+<a href="https://github.com/prayag2/kde_aestheticclock/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/prayag2/kde_aestheticclock?color=%23a3be8c&style=for-the-badge"></a>
+<a href="https://github.com/prayag2/kde_aestheticclock/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/prayag2/kde_aestheticclock?color=%23a3be8c&style=for-the-badge"></a>
+<a href="https://github.com/prayag2/kde_aestheticclock/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/prayag2/kde_aestheticclock?color=%23a3be8c&style=for-the-badge"></a>
 </p>
 
 <p align="center">
