@@ -163,28 +163,45 @@ Item {
         PlasmaCore.DataSource {
             id: musicSource
             engine: "mpris2"
-            connectedSources: ["@multiplex"]
             property bool showAudio: Plasmoid.configuration.show_audio
             
             onDataChanged: {
-                audioTitle.text = data["@multiplex"]["Metadata"]["xesam:title"]
-                try {
-                    audioArtist.text = data["@multiplex"]["Metadata"]["xesam:artist"].join(", ")
-                } catch(err) {
-                    audioArtist.text = data["@multiplex"]["Metadata"]["xesam:artist"]
+                connectedSources = ["@multiplex"]
+                var audioData = data["@multiplex"]
+                var audioMetadata = audioData["Metadata"]
+                
+                var title = audioMetadata["xesam:title"]
+                var artist = audioMetadata["xesam:artist"]
+                var thumb = audioMetadata["mpris:artUrl"]
+                
+                // show if and only if the audio source exists, the metadata exists, showAudio is enabled and the audio is currently playing
+                if (audioData && audioMetadata && showAudio && audioData["PlaybackStatus"] === "Playing") {
+                    sectionAudio.visible = true
+                    
+                    audioTitle.text = title ? title : ""
+                    audioThumb.source = thumb ? thumb : ""
+                    
+                    console.log(typeof artist == )
+                    try {
+                        audioArtist.text = artist.join(", ")
+                    } catch(err) {
+                        audioArtist.text = artist
+                    }
+                } else {
+                    sectionAudio.visible = false
                 }
-                try {
-                    audioThumb.source = data["@multiplex"]["Metadata"]["mpris:artUrl"]
-                } catch(err) {
-                    // don't show any thumbnail
-                }
-                sectionAudio.visible = data["@multiplex"]["PlaybackStatus"] == "Playing" && showAudio ? true : false 
+            }
+            onSourcesChanged: {
+                dataChanged()
+            }
+            onSourceRemoved: {
+                dataChanged()
             }
             onShowAudioChanged: {
                 dataChanged()
             }
             Component.onCompleted: {
-                sectionAudio.visible = typeof data["@multiplex"] != "undefined" && showAudio
+                dataChanged()
             }
         }
         
