@@ -168,20 +168,20 @@ Item {
             onDataChanged: {
                 connectedSources = ["@multiplex"]
                 var audioData = data["@multiplex"]
-                var audioMetadata = audioData["Metadata"]
                 
-                var title = audioMetadata["xesam:title"]
-                var artist = audioMetadata["xesam:artist"]
-                var thumb = audioMetadata["mpris:artUrl"]
                 
                 // show if and only if the audio source exists, the metadata exists, showAudio is enabled and the audio is currently playing
-                if (audioData && audioMetadata && showAudio && audioData["PlaybackStatus"] === "Playing") {
+                if (audioData && showAudio && audioData["PlaybackStatus"] === "Playing") {
                     sectionAudio.visible = true
+                    
+                    var audioMetadata = audioData["Metadata"]
+                    var title = audioMetadata["xesam:title"]
+                    var artist = audioMetadata["xesam:artist"]
+                    var thumb = audioMetadata["mpris:artUrl"]   
                     
                     audioTitle.text = title ? title : ""
                     audioThumb.source = thumb ? thumb : ""
                     
-                    console.log(typeof artist == )
                     try {
                         audioArtist.text = artist.join(", ")
                     } catch(err) {
